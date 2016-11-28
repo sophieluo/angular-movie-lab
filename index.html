@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html data-ng-app="movieApp">
+  <head>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!-- angular -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.js"></script>
+
+    <!-- custom script (angular app) -->
+    <script type="text/javascript" src="app.js"></script>
+
+  </head>
+  <body>
+    <div ng-controller = "MovieController as movies">
+
+      <form ng-submit="movies.addMovie()">
+        <span>Add new movie: </span>
+        <input type="text" ng-model="movies.movie.name">
+        <input type="submit" value="Submit" />
+      </form>
+
+      <!-- <div ng-repeat="movie in movies.moviesToWatch | limitTo: 5">
+          <p>{{movie.name}}</p>
+      </div> -->
+
+      <div ng-repeat="movie in movies.moviesToWatch | orderBy:'-name' | limitTo: 5">
+          <span>{{movie.name}}</span>
+          <i class="glyphicon glyphicon-trash" ng-click="movies.deleteMovie()"></i>
+      </div>
+
+      <ng-pluralize count="movies.moviesToWatch.length"
+                    when="{'0': 'No movie to watch.',
+                          'one': 'One movie to watch.',
+                          'other': '{} movies to watch.'}">
+      </ng-pluralize>
+
+    </div>
+  </body>
+</html>
